@@ -23,7 +23,7 @@ public class Assesment {
 	private JTextField uid;
 	private JTextField fname;
 	private JTextField lname;
-	private JTextField mail;
+	private JTextField email;
 	private JTextField mobile;
 
 	/**
@@ -121,10 +121,10 @@ public class Assesment {
 		lname.setBounds(153, 201, 209, 15);
 		frame.getContentPane().add(lname);
 		
-		mail = new JTextField();
-		mail.setColumns(10);
-		mail.setBounds(153, 238, 209, 15);
-		frame.getContentPane().add(mail);
+		email = new JTextField();
+		email.setColumns(10);
+		email.setBounds(153, 238, 209, 15);
+		frame.getContentPane().add(email);
 		
 		mobile = new JTextField();
 		mobile.setColumns(10);
@@ -136,9 +136,9 @@ public class Assesment {
 			public void actionPerformed(ActionEvent e) {
 				
 				String id = uid.getText();
-				String f1  =fname.getText();
+				String f1 = fname.getText();
 				String l1 = lname.getText();
-				String e1 = mail.getText();
+				String e1 = email.getText();
 				String m1 = mobile.getText();
 				
 				try {
@@ -158,7 +158,7 @@ public class Assesment {
 						JOptionPane.showMessageDialog(frame , "Data Inserted!!!");
 						uid.setText("");
 						fname.setText("");
-						mail.setText("");
+						email.setText("");
 						lname.setText("");
 						mobile.setText("");
 						
@@ -169,20 +169,20 @@ public class Assesment {
 					else
 					{
 						int uid = Integer.parseInt(id);
-						PreparedStatement ps = cn.prepareStatement("update student set fname=?,lname=?,email=?,mobile=? where id=?");
+						PreparedStatement ps = cn.prepareStatement("update student set FIRSTNAME=?,LASTNAME=?,EMAIL=?,MOBILE=? where ID=?");
 						
+						ps.setInt(5, uid);
 						ps.setString(1, f1);
 						ps.setString(2, l1);
 						ps.setString(3, e1);
 						ps.setString(4, m1);
-						ps.setInt(5, uid);
 						
 						int i = ps.executeUpdate();	
 						{
 							JOptionPane.showMessageDialog(frame, "Data Updated !!!");
 							fname.setText("");
 							lname.setText("");
-							mail.setText("");
+							email.setText("");
 							mobile.setText("");
 							Assesment.this.uid.setText("");
 							
@@ -205,10 +205,10 @@ public class Assesment {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-int             id = Integer.parseInt(uid.getText());
+				int id = Integer.parseInt(uid.getText());
 				
 				try {
-					PreparedStatement ps = cn.prepareStatement("Select * from student where id = ?");
+					PreparedStatement ps = cn.prepareStatement("Select * from student where ID = ?");
 					ps.setInt(1, id);
 					ResultSet rs = ps.executeQuery();
 					
@@ -216,7 +216,7 @@ int             id = Integer.parseInt(uid.getText());
 					{
 						fname.setText(rs.getString(2));
 						lname.setText(rs.getString(3));
-						mail.setText(rs.getString(4));
+						email.setText(rs.getString(4));
 						mobile.setText(rs.getString(5));
 					}
 					else
@@ -239,22 +239,22 @@ int             id = Integer.parseInt(uid.getText());
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String f1  = fname.getText();
-				String l1 = lname.getText();
-				String e1 = mail.getText();
-				String m1 = mobile.getText();
+				
 				int id = Integer.parseInt(uid.getText());
 				
 				try {
-					PreparedStatement ps = cn.prepareStatement("Select * from student where id = ?");
+					PreparedStatement ps = cn.prepareStatement("select * from student where ID=?");
 					ps.setInt(1, id);
+					
 					ResultSet rs = ps.executeQuery();
+					
+					
 					
 					if(rs.next())
 					{
 						fname.setText(rs.getString(2));
 						lname.setText(rs.getString(3));
-						mail.setText(rs.getString(4));
+						email.setText(rs.getString(4));
 						mobile.setText(rs.getString(5));
 					}
 					
@@ -276,7 +276,7 @@ int             id = Integer.parseInt(uid.getText());
 				int uid = Integer.parseInt(i1);
 				
 				try {
-					PreparedStatement ps2 = cn.prepareStatement("delete from student where id=?");
+					PreparedStatement ps2 = cn.prepareStatement("delete from student where ID=?");
 					ps2.setInt(1, uid);
 					
 					int i = ps2.executeUpdate();
@@ -288,7 +288,6 @@ int             id = Integer.parseInt(uid.getText());
 						Assesment.this.uid.setText("");
 						fname.setText("");
 						lname.setText("");
-						mail.setText("");
 						mobile.setText("");
 						
 					}
